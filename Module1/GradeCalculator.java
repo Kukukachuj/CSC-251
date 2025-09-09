@@ -125,18 +125,33 @@ public class GradeCalculator {
      * Calculates and displays current average
      */
     private static void viewAverage() {
-        // TODO: Calculate average of all grades
-        // Handle case when no grades exist
-        // Display formatted average
+        if ( grades == null) {
+            JOptionPane.showMessageDialog(null, "You have not added any grades yet!");
+        }
+        else {
+            double avg = calculateAverage();
+            JOptionPane.showMessageDialog(null,
+                "Current Average: " + df.format(avg) + "%",
+                "Average", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
     
     /**
      * Determines and displays letter grade based on average
      */
     private static void viewLetterGrade() {
-        // TODO: Calculate average, then determine letter grade
-        // Use standard grading scale (A: 90-100, B: 80-89, etc.)
-        // Display both average and letter grade
+        if (grades.isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "No grades available. Please add a grade first.",
+                    "No Grades", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        double average = calculateAverage();
+        String letter = getLetterGrade(average);
+        JOptionPane.showMessageDialog(null,
+                "Average: " + df.format(average) + "%\n" +
+                "Letter Grade: " + letter,
+                "Letter Grade", JOptionPane.INFORMATION_MESSAGE);
     }
     
     /**
