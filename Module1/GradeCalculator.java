@@ -108,9 +108,17 @@ public class GradeCalculator {
      * Adds a new grade to the collection
      */
     private static void addGrade() {
-        // TODO: Implement grade addition with validation (0-100 range)
-        // Add grade to ArrayList
-        // Show confirmation message
+       String input = JOptionPane.showInputDialog(null,
+            "Enter the grade to add (0-100):",
+            "Add Grade", JOptionPane.QUESTION_MESSAGE);
+        if (input == null){
+            return;
+        }
+        double grade = Double.parseDouble(input);
+        if (grade >= 0 && grade <= 100) {
+            grades.add(grade);
+            JOptionPane.showMessageDialog(null, "Your grade was successfully added!");
+        }
     }
     
     /**
@@ -150,12 +158,21 @@ public class GradeCalculator {
     
     // TODO: Add helper methods for calculations
     private static double calculateAverage() {
-        // Calculate and return average
+        if (grades.isEmpty()) return 0.0;
+        double total = 0.0;
+        for (double grade : grades) {
+            total += grade;
+        }
+        return total / grades.size();
         return 0.0;
     }
     
     private static String getLetterGrade(double average) {
-        // Return appropriate letter grade
+        if (average >= 90) return "A";
+        else if (average >= 80) return "B";
+        else if (average >= 70) return "C";
+        else if (average >= 60) return "D";
+        else return "F";
         return "A";
     }
 }
